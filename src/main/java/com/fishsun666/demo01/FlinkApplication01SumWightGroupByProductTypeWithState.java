@@ -9,10 +9,7 @@ import org.apache.flink.api.common.state.ValueStateDescriptor;
 import org.apache.flink.api.common.typeinfo.TypeHint;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.java.tuple.Tuple2;
-import org.apache.flink.api.java.typeutils.TupleTypeInfo;
-import org.apache.flink.api.java.typeutils.TupleTypeInfoBase;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import java.math.BigDecimal;
@@ -20,19 +17,21 @@ import java.math.BigDecimal;
 /**
  * @Author: zhangxinsen
  * @Date: 2023/5/7 21:49
- * @Desc: 对结算重量根据产品类型进行汇总, 并且使用key by state
+ * @Desc: 对于已签收的数据, 结算重量根据产品类型进行汇总, 并且使用key by state
  * @Version: v1.0
  */
 
 public class FlinkApplication01SumWightGroupByProductTypeWithState {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = EnvUtils.createEnv();
-        DataStream<SiteShouldSign> siteShouldSignDataStreamSource = env.addSource(new SiteShouldSignSource())
+        env.addSource(new SiteShouldSignSource())
                 .setParallelism(1)
+                .filter(x -> x.getSignType() != 10)
+                .setParallelism(1)
+                .name("filter-signed-data")
+                .uid("filter-signed-data")
                 .name("site-should-sign-source")
-                // .uid("uid-site-should-sign-source")
-                ;
-        siteShouldSignDataStreamSource
+                .uid("uid-site-should-sign-source")
                 .keyBy(SiteShouldSign::getProductTypeName)
                 .map(new RichMapFunction<SiteShouldSign, Tuple2<String, BigDecimal>>() {
                     private ValueState<Tuple2<String, BigDecimal>> state;

@@ -66,7 +66,7 @@ public class SiteShouldSign {
     private String paymentType;
     private String arriveFee;
     private String codFee;
-    private String signType;
+    private Integer signType;
     private String abnormalSignDesc;
     private String abnormalSignCode;
     private String nextSiteTimeLimitCode;
