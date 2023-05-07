@@ -2,3 +2,7 @@
 .idea/*
 data
 data/*
+target
+target/*
+dependency-reduced-pom.xml
+*.iml
