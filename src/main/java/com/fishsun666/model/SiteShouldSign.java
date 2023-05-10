@@ -41,7 +41,7 @@ public class SiteShouldSign {
     private String destFirstSiteCode;
     private String destCenterCode;
     private String destProvinceName;
-    private String totalPiece;
+    private Long totalPiece;
     private String specialNum;
     private String goodsName;
     private String packageType;
