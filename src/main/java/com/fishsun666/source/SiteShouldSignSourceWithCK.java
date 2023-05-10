@@ -26,7 +26,7 @@ import static com.fishsun666.utils.ParquetUtils.readParquet;
  * @Version: v1.0
  */
 
-public class SiteShouldSignSourceWithCK extends RichSourceFunction implements CheckpointedFunction {
+public class SiteShouldSignSourceWithCK<T> extends RichSourceFunction<T> implements CheckpointedFunction {
 
     ListState<SiteShouldSign> state = null;
     List<SiteShouldSign> data = new ArrayList<>();
