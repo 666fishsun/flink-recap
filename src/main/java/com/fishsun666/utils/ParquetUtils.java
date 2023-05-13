@@ -74,22 +74,51 @@ public class ParquetUtils {
 
     public static List<File> listFiles(String path) {
         File file = new File(path);
-        return Arrays.asList(file.listFiles());
+        return Arrays.asList(Objects.requireNonNull(file.listFiles()));
     }
 
     public static void main(String[] args) throws Exception {
 
-        List<String> dataDirList = Arrays.asList("data/cdc_tx_site_should_sign/dt=2023-05-06/hour=3",
-                "data/cdc_tx_site_should_sign/dt=2023-05-06/hour=6",
-                "data/cdc_tx_site_should_sign/dt=2023-05-06/hour=8",
-                "data/cdc_tx_site_should_sign/dt=2023-05-06/hour=18",
-                "data/cdc_tx_site_should_sign/dt=2023-05-06/hour=20");
+        List<String> dataDirList = Arrays.asList(
+//                "data/tx_oper_center_send/dt=2023-05-10/hour=0"
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=0",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=1",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=2",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=3",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=4",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=5",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=6",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=7",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=8",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=9",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=10",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=11",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=12",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=13",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=14",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=15",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=16",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=17",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=18",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=19",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=20",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=21",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=22",
+                "data/tx_track_task_receipt/dt=2023-05-09/hour=23"
+        );
+        Long i = 0L;
         for (String dataDir : dataDirList) {
             List<File> files = listFiles(dataDir);
             for (File file : files) {
-                List<Map<String, String>> parquetContent = readParquet("file://" + file.getAbsolutePath());
-                System.out.println(parquetContent.get(0).get("message_body"));
+//                i += 1;
+                List<Map<String, String>> parquetContent = readParquet("file:///" + file.getAbsolutePath());
+//                System.out.println(parquetContent.get(0).get("message_body"));
+                for (Map<String, String> map : parquetContent) {
+                    i += 1L;
+                }
+                System.out.println(file.getName());
             }
         }
+        System.out.println(i);
     }
 }
