@@ -28,7 +28,7 @@ public class FlinkApp02SinkTxSendData2Kafka {
   private static final String BOOTSTRAP_SERVER = "10.10.106.148:25502";
 
   public static void main(String[] args) throws Exception {
-    StreamExecutionEnvironment env = EnvUtils.createEnv(8081, "tx_oper_center_send");
+    StreamExecutionEnvironment env = EnvUtils.createEnv(8083, "tx_oper_center_send");
 
     DataStream<String> parquetSource = env.addSource(new ParquetFileSource(Arrays.asList("data/tx_oper_center_send/dt=2023-05-10/hour=0")))
             .name(String.format("%s_source", SINK_KAFKA_TOPIC))
