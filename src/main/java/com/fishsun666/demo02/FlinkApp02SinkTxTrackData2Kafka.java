@@ -30,7 +30,7 @@ public class FlinkApp02SinkTxTrackData2Kafka {
   private static final String BOOTSTRAP_SERVER = "10.10.106.148:25502";
 
   public static void main(String[] args) throws Exception {
-    StreamExecutionEnvironment env = EnvUtils.createEnv(8082, "tx_track_task_receipt");
+    StreamExecutionEnvironment env = EnvUtils.createEnv(9999, "tx_track_task_receipt");
     DataStream<String> parquetSource = env.addSource(new ParquetFileSource(Arrays.asList("data/tx_track_task_receipt/dt=2023-05-09/hour=0",
                     "data/tx_track_task_receipt/dt=2023-05-09/hour=1",
                     "data/tx_track_task_receipt/dt=2023-05-09/hour=2",
